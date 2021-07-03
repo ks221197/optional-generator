@@ -10,7 +10,7 @@
   "keywords": [],
   "license": "ISC",
   "bin": {
-    "boilerplate": "./bin/index.js"
+    "hyung": "./bin/index.js"
   },
   "files": [
     "bin/",
