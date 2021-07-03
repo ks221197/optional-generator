@@ -96,16 +96,19 @@ Write script in **package.json** with option you want to provide.
 
 ```
 "scripts": {
-    "create": "hyung user --all"
+    "create": "hyung --all"
 },
 ```
 
-Run script to create app.js
+Run script to create app.js(with or without custom module name)
 
 ```bash
-$ npm run create
+$ npm run create 
 ```
-
+ or
+```bash
+$ npm run create user
+```
 
 ---
 

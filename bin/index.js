@@ -6,6 +6,7 @@ var path = require('path')
 const fs = require("fs")
 const mustache = require('mustache');
 var mkdirp = require('mkdirp')
+const TITLE_EXPRESSION= /[^a-zA-Z0-9_]/g;
 
 const program = new Command();
 var MODE_0755 = parseInt('0755', 8)
@@ -69,10 +70,17 @@ var currentDir='.'
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+  function validateName(moduleName) {
+     if(moduleName.match(/^(?!.*\/\/)[A-Za-z][A-Za-z0-9_]*$/g)) return moduleName
+     else console.log('\x1b[4mGive proper name\x1b[0m eg:user ,user123 ,user_123\x1b[0m '); return false;
+  }
 
   function createModule(moduleName,optionValue) {
     moduleName=moduleName?moduleName:'index'
-    
+
+    if(Object.keys(optionValue).length <=0) {  program.help(); return false}
+    if(!validateName(moduleName)) {return false}
+
     if (optionValue.all || optionValue.app) {
       //app.js
       addOrUpdateFile(currentDir,'app.js','app.js',path.resolve(__dirname, '../templates/app'),true,moduleName)
@@ -96,7 +104,7 @@ var currentDir='.'
       addOrUpdateFile(currentDir,'src/config','database.js',path.resolve(__dirname, '../templates/database.js'))
     }
 
-    console.log('   \x1b[31m\x1b[4mNOTES  : Must include these package in your project\x1b[0m '+'\n\n'+
+    console.log('\n   \x1b[31m\x1b[4mNOTES  : Must include these package in your project\x1b[0m '+'\n\n'+
                 '   --------> \x1b[1mnpm install express body-parser mysql --save && npm install nodemon --save-dev\x1b[0m \n' );
 
   }
@@ -108,7 +116,6 @@ var currentDir='.'
 //   .option('   --create [module_name]', 'make whole module', createModule,'index')
 
   program
-  .name('generator')
   .arguments('[moduleName]')
   .usage('Crud generator')
   .option('-all, --all', 'Generates boilerplate')
@@ -121,9 +128,7 @@ var currentDir='.'
   })
   .parse(process.argv);
 
-// if (process.argv.length < 3) {
-//   program.help();
-// }
+
 
 
 // // Try the following:
