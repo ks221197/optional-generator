@@ -7,7 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kajal Singh <kajalsingh221197@gmail.com>",
-  "keywords": [],
+  "keywords": [
+    "express",
+    "framework",
+    "CRUD",
+    "boilerplate",
+    "generator",
+    "mysql",
+    "restful",
+    "api"
+  ],
   "license": "ISC",
   "bin": {
     "hyung": "./bin/index.js"
