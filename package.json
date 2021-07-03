@@ -1,6 +1,6 @@
 {
   "name": "optional-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generates boilerplate for nodejs with express framework in MVC structure and configuration of mysql.Also generates only configuration, helper or index file as per option provided.",
   "main": "bin/index.js",
   "scripts": {
