@@ -1,6 +1,6 @@
 {
-  "name": "optional-generator",
-  "version": "1.0.2",
+  "name": "optional-generatorV2",
+  "version": "1.0.0",
   "description": "Generates boilerplate for nodejs with express framework in MVC structure and configuration of mysql.Also generates only configuration, helper or index file as per option provided.",
   "main": "bin/index.js",
   "scripts": {
@@ -34,10 +34,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ks221197/optional-generator.git"
+    "url": "https://github.com/ks221197/optional-generatorV2.git"
   },
   "bugs": {
-    "url": "https://github.com/ks221197/optional-generator/issues"
+    "url": "https://github.com/ks221197/optional-generatorV2/issues"
   },
-  "homepage": "https://github.com/ks221197/optional-generator"
+  "homepage": "https://github.com/ks221197/optional-generatorV2"
 }

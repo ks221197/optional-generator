@@ -1,0 +1,74 @@
+V2
+-------------------------------------------------------------------------------------------
+
+bin
+-index.js
+
+CLI commands
+-hyung new|-n [name]		//required database choice
+-hyung module|-m [name]
+-hyung database|-d (choice list)
+-hyung helper|-hp
+-hyung app|-a
+
+cli
+	-commands  //command-wise file structure
+	--new.command.js
+	--module.command.js
+	--database.command.js
+	--helper.command.js
+	--index.command.js
+
+	-actions  //command-wise file structure
+	--new.action.js
+	--module.action.js
+	--database.action.js
+	--helper.action.js
+	--index.action.js
+
+	-utils
+	--files.utils.js
+
+lib
+-application
+-module
+-helper
+-database
+-app
+
+question
+
+nest new <name> <db>
+	    |	  |
+	    |	  |-------(ask db with choice list(must select))
+	    |
+	(ask question with default value) 	
+
+
+
+nest module <name> <db>
+	      |	    |
+	      |	    |-------(Need to find which db is used in database.js file via code, if not file or database found then ask db with choice list(must select))
+	      |
+	(ask question with default value) 	
+
+nest database <db>
+	    	|
+	    	|-------(ask db with choice list(must select))
+	    
+	
+
+V3 (28-07-21)
+---------------------------------------------------------------------------
+
+
+CLI commands
+-hyung module|-m [name] // empty func or logical func 
+
+
+
+
+
+
+
+
