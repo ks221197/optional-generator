@@ -1,0 +1,48 @@
+{
+  "name": "optional-generator",
+  "version": "2.0.6",
+  "description": "Generates boilerplate for nodejs with express framework in MVC structure and configuration of three database MySQL, MongoDB, PostgreSQL also provided.Also generates only database configuration, helper or index file as per option provided.",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kajal Singh <kajalsingh221197@gmail.com>",
+  "keywords": [
+    "express",
+    "framework",
+    "CRUD",
+    "boilerplate",
+    "generator",
+    "mysql",
+    "restful",
+    "api",
+    "postgres",
+    "postgresql",
+    "mongodb"
+  ],
+  "license": "ISC",
+  "bin": {
+    "hyung": "./bin/index.js"
+  },
+  "files": [
+    "bin/",
+    "cli/",
+    "lib/"
+  ],
+  "dependencies": {
+    "commander": "^8.0.0",
+    "fs": "0.0.1-security",
+    "inquirer": "^8.1.2",
+    "mkdirp": "^1.0.4",
+    "mustache": "^4.2.0",
+    "path": "^0.12.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ks221197/optional-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ks221197/optional-generator/issues"
+  },
+  "homepage": "https://github.com/ks221197/optional-generator"
+}
