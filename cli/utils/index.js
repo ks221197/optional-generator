@@ -123,7 +123,7 @@ exports.createOrUpdateFile = createOrUpdateFile;
 function copyFile(from, to) {
     if (!fs.existsSync(to)) {
         console.log('   \x1b[33madd\x1b[0m : ' + to + path.sep);
-        fs.copyFileSync(from, to, (err) => {
+        fs.copyFileSync(from, to, fs.constants.COPYFILE_EXCL, (err) => {
             if (err) { console.log(err); }
         });
     }
@@ -153,11 +153,11 @@ function writeFile(from, to, options) {
 exports.writeFile = writeFile;
 
 function defaultCMDInstruction(options = {}) {
-    const database = options && options.database ? options.database === 'MySQL' ? 'mysql' : options.database === 'MongoDB' ? 'mongoose' : options.database === 'PostgreSQL' ? 'pg' : '': '';
+    const database = options && options.database ? options.database === 'MySQL' ? 'mysql' : options.database === 'MongoDB' ? 'mongoose' : options.database === 'PostgreSQL' ? 'pg' : '' : '';
     console.log('\n👉  Get started with the following commands:\n' +
         '\n' +
         '\x1b[2m$ npm init -y \n' +
-        '$ npm install express body-parser ' + database + ' --save && npm install nodemon --save-dev\n'+
+        '$ npm install express body-parser ' + database + ' --save && npm install nodemon --save-dev\n' +
         '$ node app.js || nodemon app.js\n\x1b[0m');
 }
 exports.defaultCMDInstruction = defaultCMDInstruction;
