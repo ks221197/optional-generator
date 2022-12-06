@@ -8,7 +8,7 @@ module.exports = () => {
     process.exit(0);
 }
 
-function generateApplicationFiles(options) {
+function generateApplicationFiles() {
     defaultValue.paths.find(value => {
         if (Object.keys(value)[0] == '_responseHandler' || Object.keys(value)[0] == '_constant') {
             const path = Object.values(value)

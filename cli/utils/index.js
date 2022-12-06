@@ -4,6 +4,8 @@ var path = require('path')
 const fs = require("fs")
 const mustache = require('mustache');
 var mkdirp = require('mkdirp')
+const inquirer = require("inquirer");
+
 const currentDir = '.'
 
 const generateInput = (name, message, validateType = '') => {
@@ -25,8 +27,6 @@ const generateInput = (name, message, validateType = '') => {
         }
     });
 };
-exports.generateInput = generateInput;
-
 const generateList = (name, message) => {
     // return (message) => {
     return (choices) => ({
@@ -37,7 +37,6 @@ const generateList = (name, message) => {
     });
     // };
 };
-exports.generateList = generateList;
 
 /**
  Returns the lowerCamelCase form of a string.
@@ -61,7 +60,6 @@ function camelize(str) {
         })
         .replace(/^([A-Z])/, (match) => match.toLowerCase());
 }
-exports.camelize = camelize;
 
 /**
  Returns the UpperCamelCase form of a string.
@@ -80,7 +78,6 @@ exports.camelize = camelize;
 function classify(str) {
     return str.split('.').map(part => capitalize(camelize(part))).join('.');
 }
-exports.classify = classify;
 
 /**
  Returns the Capitalized form of a string
@@ -99,7 +96,6 @@ exports.classify = classify;
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.substr(1);
 }
-exports.capitalize = capitalize;
 
 function createOrUpdateFile(source, destination, options) {
     try {
@@ -118,7 +114,6 @@ function createOrUpdateFile(source, destination, options) {
         console.log("Please try again...")
     }
 }
-exports.createOrUpdateFile = createOrUpdateFile;
 
 function copyFile(from, to) {
     if (!fs.existsSync(to)) {
@@ -129,7 +124,6 @@ function copyFile(from, to) {
     }
     else console.log('   \x1b[34mexists\x1b[0m : ' + to + path.sep);
 }
-exports.copyFile = copyFile;
 
 function writeFile(from, to, options) {
     if (!fs.existsSync(to)) {
@@ -150,14 +144,20 @@ function writeFile(from, to, options) {
     }
     else console.log('   \x1b[34mexists\x1b[0m : ' + to + path.sep);
 }
-exports.writeFile = writeFile;
 
 function defaultCMDInstruction(options = {}) {
-    const database = options && options.database ? options.database === 'MySQL' ? 'mysql' : options.database === 'MongoDB' ? 'mongoose' : options.database === 'PostgreSQL' ? 'pg' : '': '';
+    const database = options && options.database ? options.database.type === 'MySQL' ? 'mysql' : options.database.type === 'MongoDB' ? 'mongoose' : options.database.type === 'PostgreSQL' ? 'pg' : '' : '';
     console.log('\n👉  Get started with the following commands:\n' +
         '\n' +
         '\x1b[2m$ npm init -y \n' +
-        '$ npm install express body-parser ' + database + ' --save && npm install nodemon --save-dev\n'+
+        '$ npm install express body-parser ' + database + ' --save && npm install nodemon --save-dev\n' +
         '$ node app.js || nodemon app.js\n\x1b[0m');
 }
-exports.defaultCMDInstruction = defaultCMDInstruction;
+
+const askQuestions = (questions) => new Promise((resolve) => {
+    inquirer.prompt(questions).then((answers) => {
+        resolve(answers)
+    });
+});
+
+module.exports = { generateInput, generateList, camelize, classify, capitalize, createOrUpdateFile, copyFile, writeFile, defaultCMDInstruction, askQuestions }

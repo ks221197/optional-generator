@@ -1,6 +1,5 @@
-const {  generateList, createOrUpdateFile, defaultCMDInstruction } = require("../utils");
+const { createOrUpdateFile, defaultCMDInstruction, askQuestions } = require("../utils");
 const defaultValue = require("../../lib/common/schema");
-const inquirer = require("inquirer");
 
 module.exports = async (type) => {
     const replacedInputs = await checkInputs(type);
@@ -14,19 +13,23 @@ async function checkInputs(type) {
 }
 
 async function validateOptions(options) {
-    const dbQuestion = { name: defaultValue.database.name, message: defaultValue.database.message, choices: defaultValue.database.choices }
+    let questions = defaultValue.database
 
-    if (options && options.database) {
-        if (typeof options.database === 'boolean' || (!defaultValue.database.choices.map(type => type.toLowerCase()).includes(options.database) && !defaultValue.database.choices.includes(options.database))) {
-            var prompt = await inquirer.createPromptModule();
-            const answer = await prompt(generateList(dbQuestion.name, dbQuestion.message)(dbQuestion.choices))
-            options.database = answer[dbQuestion.name]
-        }
+    if (!options && !options.database && typeof options.database === 'boolean' || (!defaultValue.databaseType.choices.map(type => type.toLowerCase()).includes(options.database) && !defaultValue.databaseType.choices.includes(options.database))) {
+        await askQuestions(questions).then((value) => {
+            options.database = value
+        });
     }
     else {
-        var prompt = await inquirer.createPromptModule();
-        const answer = await prompt(generateList(dbQuestion.name, dbQuestion.message)(dbQuestion.choices))
-        options.database = answer[dbQuestion.name]
+        const databaseObj = {}
+        databaseObj['type'] = options.database
+        questions.shift()
+        await askQuestions(questions).then((answers) => {
+            for (let key in answers) {
+                databaseObj[key] = answers[key]
+            }
+        });
+        options.database = databaseObj
     }
     return options
 }
@@ -37,7 +40,7 @@ function generateDatabaseConfigFile(options) {
             const path = Object.values(value)
             const source = ('../../' + defaultValue.root + path[0].source);
             const destination = path[0].destination.replace('{{moduleName}}', 'index');
-            createOrUpdateFile(source, destination, { isOnlyCopy: true, [options.database.toLowerCase()]: true })
+            createOrUpdateFile(source, destination, { isOnlyCopy: true, [options.database.type.toLowerCase()]: true, database: options.database })
         }
     })
 }

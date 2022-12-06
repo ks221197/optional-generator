@@ -30,10 +30,10 @@ async function validateName(value) {
 }
 
 async function validateOptions(options) {
-    const dbQuestion = { name: defaultValue.database.name, message: defaultValue.database.message, choices: defaultValue.database.choices }
+    const dbQuestion = { name: defaultValue.databaseType.name, message: defaultValue.databaseType.message, choices: defaultValue.databaseType.choices }
 
     if (options && options.database) {
-        if (typeof options.database === 'boolean' || (!defaultValue.database.choices.map(type => type.toLowerCase()).includes(options.database) && !defaultValue.database.choices.includes(options.database))) {
+        if (typeof options.database === 'boolean' || (!defaultValue.databaseType.choices.map(type => type.toLowerCase()).includes(options.database) && !defaultValue.databaseType.choices.includes(options.database))) {
             var prompt = await inquirer.createPromptModule();
             const answer = await prompt(generateList(dbQuestion.name, dbQuestion.message)(dbQuestion.choices))
             options.database = answer[dbQuestion.name]
